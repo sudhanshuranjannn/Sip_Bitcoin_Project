@@ -28,7 +28,7 @@ Version Control: Git & GitHub
 
 Clone the repository:
 
-git clone (https://github.com/sudhanshuranjannn/Sip_Bitcoin_Project)
+git clone [https://github.com/sudhanshuranjannn/Sip_Bitcoin_Project]
 
 Create and activate a virtual environment:
 
