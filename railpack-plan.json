@@ -1,0 +1,21 @@
+{
+  "region": "asia-southeast1",
+  "packages": {
+    "python": "3.12"
+  },
+  "steps": [
+    {
+      "name": "install",
+      "run": [
+        "python -m venv /app/.venv",
+        "pip install -r requirements.txt"
+      ]
+    },
+    {
+      "name": "deploy",
+      "run": [
+        "python manage.py migrate && gunicorn bitcoin_sip.wsgi:application"
+      ]
+    }
+  ]
+}
