@@ -4,9 +4,15 @@ from datetime import timedelta
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'dev-secret-key'
-DEBUG = True
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+# ✅ Use environment variables for production
+SECRET_KEY = os.getenv('SECRET_KEY', 'dev-secret-key')
+DEBUG = os.getenv('DEBUG', 'True').lower() == 'true'
+
+# ✅ Allow Railway domain + localhost
+ALLOWED_HOSTS = os.getenv(
+    'ALLOWED_HOSTS', 
+    '127.0.0.1,localhost,sipbitcoinproject-production.up.railway.app'
+).split(',')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -39,6 +45,10 @@ DEFAULT_FROM_EMAIL = 'no-reply@bitcoin-sip.local'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+
+    # ✅ Whitenoise for static files
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -77,14 +87,4 @@ DATABASES = {
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',},
-    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',},
-    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',},
-]
-
-LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'UTC'
-USE_I18N = True
-USE_TZ = True
-
-STATIC_URL = 'static/'
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+    {
