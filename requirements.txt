@@ -1,4 +1,5 @@
-Django==5.2.6
-djangorestframework==3.16.1
-djangorestframework-simplejwt==5.3.1
-gunicorn==23.0.0
+Django>=5.0,<6.0
+djangorestframework>=3.15
+djangorestframework-simplejwt>=6.1
+gunicorn>=23.0
+whitenoise>=6.5
